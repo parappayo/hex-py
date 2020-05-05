@@ -7,7 +7,7 @@ class GameState:
         self.screen_size = 1024, 768 # pixels
         self.board_position = 100, 100 # pixels
 
-        self.hex_tile_width_px = 48
+        self.hex_tile_size = 40
         self.board_width_tiles = 11 
         self.board_height_tiles = 11 
         self.generate_board()
@@ -16,5 +16,5 @@ class GameState:
     def generate_board(self):
         width = self.board_width_tiles
         height = self.board_height_tiles
-        w_px = self.hex_tile_width_px
-        self.hex_tiles = [hex_geometry.HexTile(x, y, w_px) for x in range(width) for y in range(height)]
+        hex_size_px = hex_geometry.tile_size_to_px(self.hex_tile_size)
+        self.hex_tiles = [hex_geometry.HexTile(x, y, hex_size_px) for x in range(width) for y in range(height)]
