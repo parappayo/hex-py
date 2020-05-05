@@ -76,3 +76,10 @@ class HexTile:
         x2, y2 = pos
         dx, dy = x1 - x2, y2 - y1
         return dx * dx + dy * dy
+
+
+def square_board(board_width, board_height, hex_tile_size, hex_colour, points_up):
+    return [
+        HexTile(x, y, hex_tile_size, hex_colour, points_up)
+        for x in range(board_width)
+        for y in range(board_height)]
