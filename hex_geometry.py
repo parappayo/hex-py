@@ -2,6 +2,13 @@ import math
 from functools import lru_cache
 
 
+def distance_squared(p1, p2):
+    x1, y1 = p1
+    x2, y2 = p2
+    dx, dy = x1 - x2, y2 - y1
+    return dx * dx + dy * dy
+
+
 def tile_size_to_px(size, points_up):
     a, b = size * 2, math.floor(size * math.sqrt(3))
     if points_up:
@@ -23,6 +30,8 @@ def center_point(grid_position, width, height, offset, points_up):
         # stagger odd columns
         if x % 2:
             dy += height // 2
+
+    x += y // 2 # for a diamond-shaped board
 
     return (x * width + dx, y * height + dy)
 
@@ -72,13 +81,10 @@ class HexTile:
 
 
     def distance_squared(self, pos, game):
-        x1, y1 = self.center_point(game)
-        x2, y2 = pos
-        dx, dy = x1 - x2, y2 - y1
-        return dx * dx + dy * dy
+        return distance_squared(self.center_point(game), pos)
 
 
-def square_board(board_width, board_height, hex_tile_size, hex_colour, points_up):
+def generate_board(board_width, board_height, hex_tile_size, hex_colour, points_up):
     return [
         HexTile(x, y, hex_tile_size, hex_colour, points_up)
         for x in range(board_width)

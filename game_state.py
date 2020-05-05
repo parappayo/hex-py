@@ -24,7 +24,7 @@ class GameState:
 
     def generate_board(self):
         points_up = True
-        self.hex_tiles = hex_geometry.square_board(
+        self.hex_tiles = hex_geometry.generate_board(
             self.board_width_tiles,
             self.board_height_tiles,
             self.hex_tile_size,
