@@ -8,7 +8,7 @@ def draw_hex_tile(surface, game, tile):
     pygame.draw.polygon(surface, (255, 255, 255), corner_points, 2) # border
 
     if tile == game.nearest_tile_to_mouse:
-        pygame.draw.circle(surface, (0, 0, 255), center_point, 12)
+        pygame.draw.circle(surface, game.cursor_colour, center_point, 12)
 
 
 def draw_frame(surface, game):

@@ -11,6 +11,8 @@ def on_key_down(event, game):
 
 
 def on_mouse_down(event, game):
+    if game.is_valid_move():
+        game.take_move()
     return
 
 

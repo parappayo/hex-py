@@ -34,10 +34,10 @@ def corner_points(grid_position, width, height, offset):
 
 
 class HexTile:
-    def __init__(self, grid_x, grid_y, size_px):
+    def __init__(self, grid_x, grid_y, size_px, colour):
         self.grid_position = (grid_x, grid_y)
         self.width, self.height = size_px
-        self.colour = 0, 128, 128 # rgb 256
+        self.colour = colour
 
 
     def center_point(self, game):
