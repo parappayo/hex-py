@@ -8,9 +8,11 @@ class GameState:
         self.board_position = 100, 100 # pixels
 
         self.hex_tile_size = 40
-        self.board_width_tiles = 11 
-        self.board_height_tiles = 11 
+        self.board_width_tiles = 11
+        self.board_height_tiles = 11
         self.generate_board()
+
+        self.nearest_tile_to_mouse = None
 
 
     def generate_board(self):
@@ -18,3 +20,19 @@ class GameState:
         height = self.board_height_tiles
         hex_size_px = hex_geometry.tile_size_to_px(self.hex_tile_size)
         self.hex_tiles = [hex_geometry.HexTile(x, y, hex_size_px) for x in range(width) for y in range(height)]
+
+
+    def nearest_hex_tile(self, pos):
+        result = None
+        min_distance = None
+
+        for tile in self.hex_tiles:
+            tile_distance = tile.distance_squared(pos, self)
+            if result == None:
+                min_distance = tile_distance
+                result = tile
+            elif tile_distance < min_distance:
+                min_distance = tile_distance
+                result = tile
+
+        return result

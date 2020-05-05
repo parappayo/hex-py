@@ -37,9 +37,16 @@ class HexTile:
         self.colour = 0, 128, 128 # rgb 256
 
 
-    def center_point(self, offset):
-        return center_point(self.grid_position, self.width, self.height, offset)
+    def center_point(self, game):
+        return center_point(self.grid_position, self.width, self.height, game.board_position)
 
 
-    def corner_points(self, offset):
-        return corner_points(self.grid_position, self.width, self.height, offset)
+    def corner_points(self, game):
+        return corner_points(self.grid_position, self.width, self.height, game.board_position)
+
+
+    def distance_squared(self, pos, game):
+        x1, y1 = self.center_point(game)
+        x2, y2 = pos
+        dx, dy = x1 - x2, y2 - y1
+        return dx * dx + dy * dy

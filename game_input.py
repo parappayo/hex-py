@@ -19,6 +19,7 @@ def on_mouse_up(event, game):
 
 
 def on_mouse_move(event, game):
+    game.nearest_tile_to_mouse = game.nearest_hex_tile(event.pos)
     return
 
 

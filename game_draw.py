@@ -2,11 +2,13 @@ import pygame
 
 
 def draw_hex_tile(surface, game, tile):
-    center_point = tile.center_point(game.board_position)
-    corner_points = tile.corner_points(game.board_position)
+    center_point = tile.center_point(game)
+    corner_points = tile.corner_points(game)
     pygame.draw.polygon(surface, tile.colour, corner_points)
     pygame.draw.polygon(surface, (255, 255, 255), corner_points, 2) # border
-    pygame.draw.circle(surface, (0, 0, 255), center_point, 12) # checking the center points
+
+    if tile == game.nearest_tile_to_mouse:
+        pygame.draw.circle(surface, (0, 0, 255), center_point, 12)
 
 
 def draw_frame(surface, game):
