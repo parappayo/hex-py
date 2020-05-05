@@ -1,10 +1,12 @@
 import math
+from functools import lru_cache
 
 
 def tile_size_to_px(size):
     return (math.floor(size * math.sqrt(3)), size * 2)
 
 
+@lru_cache(maxsize=128)
 def center_point(grid_position, width, height, offset):
     x, y = grid_position
     dx, dy = offset
@@ -24,6 +26,7 @@ def corner_point(radius, index, position_px):
     return (radius * math.cos(theta) + x, radius * math.sin(theta) + y)
 
 
+@lru_cache(maxsize=128)
 def corner_points(grid_position, width, height, offset):
     radius = height // 2
     position_px = center_point(grid_position, width, height, offset)
