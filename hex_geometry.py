@@ -27,7 +27,7 @@ def points_up_tile_center_point(grid_position, width, height, offset):
     if y % 2:
         dx += width // 2
 
-    # diamond-shaped board
+    # diamond-shaped grid
     x += y // 2
 
     return (x * width + dx, y * height + dy)
@@ -43,7 +43,7 @@ def flats_up_tile_center_point(grid_position, width, height, offset):
     if x % 2:
         dy += height // 2
 
-    # diamond-shaped board
+    # diamond-shaped grid
     y += x // 2
 
     return (x * width + dx, y * height + dy)
@@ -86,42 +86,42 @@ class HexTile:
         self.points_up = points_up
 
 
-    def center_point(self, game):
+    def center_point(self, offset=0):
         if self.points_up:
             return points_up_tile_center_point(
                 self.grid_position,
                 self.width,
                 self.height,
-                game.board_position)
+                offset)
         else:
             return flats_up_tile_center_point(
                 self.grid_position,
                 self.width,
                 self.height,
-                game.board_position)
+                offset)
 
 
-    def corner_points(self, game):
+    def corner_points(self, offset=0):
         if self.points_up:
             return points_up_tile_corner_points(
                 self.grid_position,
                 self.width,
                 self.height,
-                game.board_position)
+                offset)
         else:
             return flats_up_tile_corner_points(
                 self.grid_position,
                 self.width,
                 self.height,
-                game.board_position)
+                offset)
 
 
-    def distance_squared(self, position, game):
-        return distance_squared(self.center_point(game), position)
+    def distance_squared(self, position, offset):
+        return distance_squared(self.center_point(offset), position)
 
 
-def generate_board(board_width, board_height, hex_tile_size, hex_colour, points_up):
+def generate_grid(grid_width, grid_height, hex_tile_size, hex_colour, points_up):
     return [
         HexTile(x, y, hex_tile_size, hex_colour, points_up)
-        for x in range(board_width)
-        for y in range(board_height)]
+        for x in range(grid_width)
+        for y in range(grid_height)]

@@ -2,8 +2,8 @@ import pygame
 
 
 def draw_hex_tile(surface, game, tile):
-    center_point = tile.center_point(game)
-    corner_points = tile.corner_points(game)
+    center_point = tile.center_point(game.board_position)
+    corner_points = tile.corner_points(game.board_position)
     pygame.draw.polygon(surface, tile.colour, corner_points)
     pygame.draw.polygon(surface, (255, 255, 255), corner_points, 2) # border
 

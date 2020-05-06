@@ -24,7 +24,7 @@ class GameState:
 
     def generate_board(self):
         points_up = True
-        self.hex_tiles = hex_geometry.generate_board(
+        self.hex_tiles = hex_geometry.generate_grid(
             self.board_width_tiles,
             self.board_height_tiles,
             self.hex_tile_size,
@@ -37,7 +37,7 @@ class GameState:
         min_distance = None
 
         for tile in self.hex_tiles:
-            tile_distance = tile.distance_squared(pos, self)
+            tile_distance = tile.distance_squared(pos, self.board_position)
             if result == None:
                 min_distance = tile_distance
                 result = tile
