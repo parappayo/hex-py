@@ -1,8 +1,9 @@
-# hex-py
+
+# Hex (Python Version)
 
 The [game Hex](https://en.wikipedia.org/wiki/Hex_(board_game)) is a connection game played on a [hexagonal grid](https://www.redblobgames.com/grids/hexagons/). This version is implemented in [PyGame](https://www.pygame.org/).
 
-![Screenshot][./screenshot.png]
+![Screenshot](./screenshot.png)
 
 ## Goals
 
