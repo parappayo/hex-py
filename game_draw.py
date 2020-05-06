@@ -11,10 +11,57 @@ def draw_hex_tile(surface, game, tile):
         pygame.draw.circle(surface, game.cursor_colour, center_point, 12)
 
 
+def draw_hex_top_border(surface, game, tile, colour):
+    width = 4
+    corner_points = tile.corner_points(game.board_position)
+    pygame.draw.lines(surface, colour, False, corner_points[3:6], width)
+
+
+def draw_hex_bottom_border(surface, game, tile, colour):
+    width = 4
+    corner_points = tile.corner_points(game.board_position)
+    pygame.draw.lines(surface, colour, False, corner_points[0:3], width)
+
+
+def draw_hex_left_border(surface, game, tile, colour):
+    width = 4
+    corner_points = tile.corner_points(game.board_position)
+    pygame.draw.lines(surface, colour, False, corner_points[1:4], width)
+
+
+def draw_hex_right_border(surface, game, tile, colour):
+    width = 4
+    corner_points = tile.corner_points(game.board_position)
+    points = (corner_points[4], corner_points[5], corner_points[0])
+    pygame.draw.lines(surface, colour, False, points, width)
+
+
+def draw_board(surface, game):
+    for tile in game.hex_tiles():
+        draw_hex_tile(surface, game, tile)
+
+
+def draw_end_zones(surface, game):
+    player_one_colour = game.player_colour[0]
+    player_two_colour = game.player_colour[1]
+
+    for tile in game.hex_grid.top_row():
+        draw_hex_top_border(surface, game, tile, player_one_colour)
+
+    for tile in game.hex_grid.bottom_row():
+        draw_hex_bottom_border(surface, game, tile, player_one_colour)
+
+    for tile in game.hex_grid.left_column():
+        draw_hex_left_border(surface, game, tile, player_two_colour)
+
+    for tile in game.hex_grid.right_column():
+        draw_hex_right_border(surface, game, tile, player_two_colour)
+
+
 def draw_frame(surface, game):
     surface.fill(game.background_colour)
 
-    for tile in game.hex_tiles():
-        draw_hex_tile(surface, game, tile)
+    draw_board(surface, game)
+    draw_end_zones(surface, game)
 
     pygame.display.flip()

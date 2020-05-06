@@ -130,3 +130,15 @@ class HexGrid:
 
     def top_row(self):
         return [self.tiles[(x, 0)] for x in range(self.width)]
+
+
+    def bottom_row(self):
+        return [self.tiles[(x, self.height-1)] for x in range(self.width)]
+
+
+    def left_column(self):
+        return [self.tiles[(0, y)] for y in range(self.height)]
+
+
+    def right_column(self):
+        return [self.tiles[(self.width-1, y)] for y in range(self.height)]
