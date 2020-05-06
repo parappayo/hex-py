@@ -14,7 +14,7 @@ def draw_hex_tile(surface, game, tile):
 def draw_frame(surface, game):
     surface.fill(game.background_colour)
 
-    for tile in game.hex_tiles:
+    for tile in game.hex_tiles():
         draw_hex_tile(surface, game, tile)
 
     pygame.display.flip()

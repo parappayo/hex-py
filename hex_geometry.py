@@ -1,4 +1,4 @@
-import math
+import math, itertools
 from functools import lru_cache
 
 
@@ -119,8 +119,14 @@ class HexTile:
         return distance_squared(self.center_point(offset), position)
 
 
-def generate_grid(grid_width, grid_height, hex_tile_size, points_up):
-    return [
-        HexTile(x, y, hex_tile_size, points_up)
-        for x in range(grid_width)
-        for y in range(grid_height)]
+class HexGrid:
+    def __init__(self, width, height, tile_size, points_up):
+        self.width = width
+        self.height = height
+        self.tiles = {
+            (x,y): HexTile(x, y, tile_size, points_up)
+            for (x,y) in itertools.product(range(width), range(height)) }
+
+
+    def top_row(self):
+        return [self.tiles[(x, 0)] for x in range(self.width)]
