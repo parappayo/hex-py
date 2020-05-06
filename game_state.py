@@ -24,12 +24,15 @@ class GameState:
 
     def generate_board(self):
         points_up = True
+
         self.hex_tiles = hex_geometry.generate_grid(
             self.board_width_tiles,
             self.board_height_tiles,
             self.hex_tile_size,
-            self.empty_hex_colour,
             points_up)
+
+        for tile in self.hex_tiles:
+            tile.colour = self.empty_hex_colour
 
 
     def nearest_hex_tile(self, pos):

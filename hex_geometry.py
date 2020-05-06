@@ -76,13 +76,12 @@ def flats_up_tile_corner_points(grid_position, width, height, offset):
 
 
 class HexTile:
-    def __init__(self, grid_x, grid_y, size_px, colour, points_up):
+    def __init__(self, grid_x, grid_y, size_px, points_up):
         self.grid_position = (grid_x, grid_y)
         if points_up:
             self.width, self.height = points_up_tile_size_px(size_px)
         else:
             self.width, self.height = flats_up_tile_size_px(size_px)
-        self.colour = colour
         self.points_up = points_up
 
 
@@ -120,8 +119,8 @@ class HexTile:
         return distance_squared(self.center_point(offset), position)
 
 
-def generate_grid(grid_width, grid_height, hex_tile_size, hex_colour, points_up):
+def generate_grid(grid_width, grid_height, hex_tile_size, points_up):
     return [
-        HexTile(x, y, hex_tile_size, hex_colour, points_up)
+        HexTile(x, y, hex_tile_size, points_up)
         for x in range(grid_width)
         for y in range(grid_height)]
