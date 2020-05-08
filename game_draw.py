@@ -9,6 +9,7 @@ def draw_hex_tile(surface, game, tile):
 
     if tile == game.nearest_tile_to_mouse:
         pygame.draw.circle(surface, game.cursor_colour, center_point, 12)
+        #draw_hex_neighbours(surface, game, tile, (255, 255, 255))
 
 
 def draw_hex_neighbours(surface, game, tile, colour):
