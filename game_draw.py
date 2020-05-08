@@ -20,6 +20,13 @@ def draw_hex_neighbours(surface, game, tile, colour):
         pygame.draw.line(surface, colour, from_point, to_point, width)
 
 
+def draw_hex_path(surface, game, path, colour):
+    width = 4
+    for i in range(len(path)-1):
+        from_point = path[i].center_point(game.board_position)
+        to_point = path[i+1].center_point(game.board_position)
+        pygame.draw.line(surface, colour, from_point, to_point, width)
+
 
 def draw_hex_top_border(surface, game, tile, colour):
     width = 4
@@ -49,6 +56,8 @@ def draw_hex_right_border(surface, game, tile, colour):
 def draw_board(surface, game):
     for tile in game.hex_tiles():
         draw_hex_tile(surface, game, tile)
+    if game.solution != None:
+        draw_hex_path(surface, game, game.solution, (255, 255, 255))
 
 
 def draw_end_zones(surface, game):

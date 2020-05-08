@@ -157,7 +157,10 @@ class HexGrid:
                 tile.neighbours.append(self.tiles[(x-1, y+1)])
 
 
-    def find_path(self, from_tile, to_tiles, filter, visited=[]):
+    def find_path(self, from_tile, to_tiles, filter, visited=None):
+        if visited == None:
+            visited = []
+
         if not filter(from_tile) or from_tile in visited:
             return None
 
@@ -167,7 +170,7 @@ class HexGrid:
         visited.append(from_tile)
 
         for neighbour in from_tile.neighbours:
-            result = self.find_path(neighbour, to_tiles, filter)
+            result = self.find_path(neighbour, to_tiles, filter, visited)
             if result != None:
                 result.append(from_tile)
                 return result

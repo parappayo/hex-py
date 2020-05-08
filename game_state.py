@@ -2,6 +2,7 @@ import hex_geometry
 
 
 class GameState:
+
     def __init__(self):
         self.background_colour = 0, 0, 0 # rgb 256
         self.screen_size = 1024, 768 # pixels
@@ -18,6 +19,7 @@ class GameState:
         self.nearest_tile_to_mouse = None
         self.current_player = 0
         self.moves = []
+        self.solution = None
 
         self.generate_board()
 
@@ -55,7 +57,33 @@ class GameState:
         return result
 
 
+    def find_solution(self):
+        for tile in self.hex_grid.top_row():
+            path = self.hex_grid.find_path(
+                tile,
+                self.hex_grid.bottom_row(),
+                lambda x: x.colour == self.player_colour[0])
+            if path != None:
+                return path
+
+        for tile in self.hex_grid.left_column():
+            path = self.hex_grid.find_path(
+                tile,
+                self.hex_grid.right_column(),
+                lambda x: x.colour == self.player_colour[1])
+            if path != None:
+                return path
+
+        return None
+
+
+    def is_game_over(self):
+        return self.solution != None
+
+
     def is_valid_move(self, tile=None):
+        if self.is_game_over():
+            return False
         if tile == None:
             tile = self.nearest_tile_to_mouse
         return not tile in self.moves
@@ -67,6 +95,7 @@ class GameState:
         tile.colour = self.player_colour[self.current_player]
         self.moves.append(tile)
         self.toggle_player_turn()
+        self.solution = self.find_solution()
 
 
     def toggle_player_turn(self):
