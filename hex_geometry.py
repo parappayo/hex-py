@@ -78,6 +78,7 @@ def flats_up_tile_corner_points(grid_position, width, height, offset):
 class HexTile:
     def __init__(self, grid_x, grid_y, size_px, points_up):
         self.grid_position = (grid_x, grid_y)
+        self.neighbours = []
         if points_up:
             self.width, self.height = points_up_tile_size_px(size_px)
         else:
@@ -126,6 +127,20 @@ class HexGrid:
         self.tiles = {
             (x,y): HexTile(x, y, tile_size, points_up)
             for (x,y) in itertools.product(range(width), range(height)) }
+        for tile in self.tiles.values():
+            self.populate_neighbours(tile)
+
+
+    def populate_neighbours(self, tile):
+        x, y = tile.grid_position
+        if x > 0:
+            tile.neighbours.append(self.tiles[(x-1, y)])
+        if x < self.width-1:
+            tile.neighbours.append(self.tiles[(x+1, y)])
+        if y > 0:
+            tile.neighbours.append(self.tiles[(x, y-1)])
+        if y < self.height-1:
+            tile.neighbours.append(self.tiles[(x, y+1)])
 
 
     def top_row(self):

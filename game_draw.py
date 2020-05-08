@@ -11,6 +11,15 @@ def draw_hex_tile(surface, game, tile):
         pygame.draw.circle(surface, game.cursor_colour, center_point, 12)
 
 
+def draw_hex_neighbours(surface, game, tile, colour):
+    width = 4
+    from_point = tile.center_point(game.board_position)
+    for neighbour in tile.neighbours:
+        to_point = neighbour.center_point(game.board_position)
+        pygame.draw.line(surface, colour, from_point, to_point, width)
+
+
+
 def draw_hex_top_border(surface, game, tile, colour):
     width = 4
     corner_points = tile.corner_points(game.board_position)
