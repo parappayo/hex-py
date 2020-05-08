@@ -87,6 +87,14 @@ class HexTile:
         self.points_up = points_up
 
 
+    def __str__(self):
+        return f'{self.grid_position}'
+
+
+    def __repr__(self):
+        return f'HexTile{self.grid_position}'
+
+
     def center_point(self, offset=0):
         if self.points_up:
             return points_up_tile_center_point(
@@ -147,6 +155,24 @@ class HexGrid:
             tile.neighbours.append(self.tiles[(x, y+1)])
             if x > 0:
                 tile.neighbours.append(self.tiles[(x-1, y+1)])
+
+
+    def find_path(self, from_tile, to_tiles, visited=[]):
+        if from_tile in to_tiles:
+            return [from_tile]
+
+        if from_tile in visited:
+            return False
+
+        visited.append(from_tile)
+
+        for neighbour in from_tile.neighbours:
+            result = self.find_path(neighbour, to_tiles)
+            if result != False:
+                result.append(from_tile)
+                return result
+
+        return False
 
 
     def top_row(self):
